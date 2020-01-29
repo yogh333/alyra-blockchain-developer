@@ -25,4 +25,3 @@ function estPalindrome2(str) {
 
 console.log(estPalindrome("ASSIETTE"));
 console.log(estPalindrome("ESOPE RESTE ICI ET SE REPOSE"));
-let 
