@@ -1,9 +1,9 @@
-//const sha256 = require('crypto-js/sha256');
+const sha256 = require('crypto-js/sha256');
 const sha1 = require('crypto-js/sha1');
 
-function sha256(data){
+/*function sha256(data){
 	return data;
-}
+}*/
 
 class MerkleTree {
 	constructor(dataList) {
