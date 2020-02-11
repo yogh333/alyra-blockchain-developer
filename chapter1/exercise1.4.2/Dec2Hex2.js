@@ -29,9 +29,12 @@ const Hex2String = function(s, be_flag, varint_flag){
 		j = s.length - 2;
 
 	for (let i = 0; i < s.length; i+=2){
-		hexString += s[j % s.length] + s[ (j+1)%s.length];
+		hexString += s[j] + s[(j+1)];
 		hexString += " ";
-		j += 2;
+		if (be_flag === true)
+			j += 2;
+		else
+			j -= 2;
 	}
 	return hexString;
 }
