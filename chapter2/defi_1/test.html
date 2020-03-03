@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="style.css" />
+    	<title>BC BLOCKCHAIN TOOL</title>
+	</head>
+
+	<body>
+		<header>	
+			<h1> <img id="bc_logo" src="bitcoin_logo_redux.png" alt="Bitcoin logo"/> BITCOIN BLOCKCHAIN ANALYZER </h1>
+		</header>
+		<nav>
+            <ul>
+                <li><a href="#hex2dec">Hexadecimal to Decimal converter</a></li>
+                <li><a href="#dec2hex">Decimal to Hexadecimal converter</a></li>
+                <li><a href="#le2be">LittleEndian to BigEndian converter</a></li>
+                <li><a href="#varinttodec">VarInt to Decimal converter</a></li>
+                <li><a href="#bits2target">Bits to Target converter </a></li>
+				<li><a href="#target2diff">Target to Difficulty converter </a></li>
+            </ul>
+        </nav>
+		
+		<h3 id="hex2dec">Hexadecimal to Decimal converter:</h3>
+		<label>Hexa value = </label><input type="text" value="0" id="hexadecimal_in" /> => <label>Decimal value = </label><span type="text" id="decimal_out"></span><br>
+		<button id="convert_hex2dec">Convert</button>
+		<script src="Hex2Dec.js"></script>
+
+		<h3 id="dec2hex">Decimal to Hexadecimal converter:</h3>
+		<label>Decimal value = </label><input type="text" value="0" id="decimal_in" /> => <label>Hexadecimal value = </label><span type="text" id="hexadecimal_out"></span><br>
+		<button id="convert_dec2hex">Convert</button>
+		<script src="Dec2Hex.js"></script>
+
+		<h3 id="le2be">LittleEndian2BigEndian:</h3>
+		<label>Hexadecimal string (LE) = </label><input type="text" value="0" id="hexa_le_in" /> => <label>Hexadecimal string (BE) = </label><span type="text" id="hexa_be_out"></span><br>
+		<button id="convert_le2be">Convert</button>
+		<script src="Le2Be.js"></script>
+
+		<h3 id="varinttodec">VarInt2Decimal:</h3>
+		<label>VarInt string = </label><input type="text" value="0" id="varInt_in" /> => <label>Value = </label><span type="text" id="varInt_out"></span><br>
+		<button id="convert_varint">Convert</button>
+		<script src="VarInt.js"></script>
+
+
+		<h3 id="bits2target">Bits2Target:</h3>
+		<label>BITS string = </label><input type="text" value="0" id="bits_in" /> => <label>Target = </label><span type="text" id="target_out"></span><br>
+		<button id="compute_target">Convert</button>
+		<script src="Bits2Target.js"></script>
+
+		<h3 id="target2diff">Target2Difficulty:</h3>
+		<label>Target (hexa) = </label><input type="text" value="0" id="target_in" /> => <label>Difficulty = </label><span type="text" id="difficulty_out"></span><br>
+		<button id="compute_difficulty">Convert</button>
+		<script src="Target2Difficulty.js"></script>
+	</body>
+</html>
