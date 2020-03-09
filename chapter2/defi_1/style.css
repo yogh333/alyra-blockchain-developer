@@ -1,6 +1,7 @@
-p, strong
+#subtitle 
 {
-    color: blue;
+    text-align: center;
+    font: italic bolder condensed 16px/2 fantasy;
 }
 #bc_logo
 {
@@ -11,4 +12,8 @@ p, strong
 h1
 {
 	text-align: center;
+}
+.blockheader_field
+{
+	font-family: "Courier New";
 }

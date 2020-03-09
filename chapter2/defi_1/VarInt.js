@@ -19,20 +19,34 @@ const SwapBytes = function(inString, revert_flag){
 const getVarInt = function(bitstream){
 	let k = 0;
 	let value = parseInt(bitstream.substring(k, k + 2), 16);
-	console.log(value);
 	k += 2;
 	switch(value){
 		case 0xFD:
-			value = parseInt(SwapBytes(bitstream.substring(k, k + 4), true), 16);
-			k += 4;
+			if (bitstream.length === 6) 
+			{
+				value = parseInt(SwapBytes(bitstream.substring(k, k + 4), true), 16);
+				k += 4;
+			}
+			else
+				value = NaN;
 			break;
 		case 0xFE:
-			value = parseInt(SwapBytes(bitstream.substring(k, k + 8), true), 16);
-			k += 8;
+			if (bitstream.length === 10) 
+			{
+				value = parseInt(SwapBytes(bitstream.substring(k, k + 8), true), 16);
+				k += 8;
+			}
+			else
+				value = NaN;
 			break;
 		case 0xFF:
-			value = parseInt(SwapBytes(bitstream.substring(k, k + 16), true), 16);
-			k += 16
+			if (bitstream.length === 18)
+			{
+				value = parseInt(SwapBytes(bitstream.substring(k, k + 16), true), 16);
+				k += 16
+			}
+			else
+				value = NaN;
 			break;
 		default:
 			break;
