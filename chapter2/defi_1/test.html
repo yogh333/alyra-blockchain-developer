@@ -26,33 +26,33 @@
 		<h3 id="hex2dec">Hex to Decimal:</h3>
 		<input type="text" placeholder="hexadecimal number" id="hexadecimal_in"/><button id="convert_hex2dec">Convert</button><br>
 		<span type="text" id="decimal_out"></span><br>
-		<script src="Hex2Dec.js"></script>
+		<script src="scripts/Hex2Dec.js"></script>
 
 		<h3 id="dec2hex">Decimal to Hex:</h3>
 		<input type="text" placeholder="decimal number" id="decimal_in"/><button id="convert_dec2hex">Convert</button><br>
 		<span type="text" id="hexadecimal_out"></span><br>
-		<script src="Dec2Hex.js"></script>
+		<script src="scripts/Dec2Hex.js"></script>
 
 		<h3 id="le2be">Swap Endian:</h3>
 		<input type="text" placeholder="hexadecimal number" id="hexa_le_in" /><button id="convert_le2be">Convert</button><br>
 		<span type="text" id="hexa_be_out"></span><br>
-		<script src="Le2Be.js"></script>
+		<script src="scripts/Le2Be.js"></script>
 
 		<h3 id="varinttodec">VarInt to Decimal:</h3>
 		<input type="text" placeholder="VarInt bitstream" id="varInt_in" /><button id="convert_varint">Convert</button><br>
 		<span type="text" id="varInt_out"></span><br>
-		<script src="VarInt.js"></script>
+		<script src="scripts/VarInt.js"></script>
 
 
 		<h3 id="bits2target">Bits to Target:</h3>
 		<input type="text" placeholder="Bits (e.g. 180696F4)" id="bits_in" /><button id="compute_target">Convert</button><br>
 		<span type="text" id="target_out"></span><br>
-		<script src="Bits2Target.js"></script>
+		<script src="scripts/Bits2Target.js"></script>
 
 		<h3 id="target2diff">Target to Difficulty:</h3>
 		<input type="text" placeholder="Target (hexadecimal number)" id="target_in" /><button id="compute_difficulty">Convert</button><br>
 		<span type="text" id="difficulty_out"></span><br>
-		<script src="Target2Difficulty.js"></script>
+		<script src="scripts/Target2Difficulty.js"></script>
 
 		<h3 id="blockparser">Block parser:</h3>
 		<textarea rows="5" cols="28" placeholder="block dump (hexadecimal)" id="blockheader_in"></textarea><button id="parse_blockheader">Convert</button><br>
@@ -65,7 +65,8 @@
 		<span type="text" class="blockheader_field" id="block_out_nbTx"></span><br>
 		<span type="text" class="blockheader_field" id="block_out_txids"></span><br>
 
-		<script src="BlockHeader.js"></script>
+		<script data-main="scripts/BlockHeader.js" src="scripts/require.js"></script>
+
 
 	</body>
 </html>
