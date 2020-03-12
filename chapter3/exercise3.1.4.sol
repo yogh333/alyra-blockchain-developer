@@ -2,50 +2,43 @@ pragma solidity ^0.5.7;
 
 contract Assemblee {
     
-    address[] membres;  
+    mapping (address => bool) public membres; // mapping des membres
 
     struct Decision {
         string description;
         uint votesPour;
         uint votesContre;
         mapping (address => bool) aVote;
+        uint dateFin;
     }
 
     Decision[] decisions;
 
 
     function rejoindre() public {
-        membres.push(msg.sender);
+        require (!membres[msg.sender], "Already member !");
+        membres[msg.sender] = true;
     }
     
     function estMembre(address utilisateur) public view returns (bool) {
-        bool isFound = false;
-        for (uint i = 0; i < membres.length;i++){
-            if (membres[i] == utilisateur){
-                isFound = true;
-                break;
-            } 
-        }
-        return isFound;
+        return membres[msg.sender];
     }
     
     function proposerDecision(string memory description) public {
-        if(estMembre(msg.sender)){
-            Decision memory decision;
-            decision.description = description;
-            decisions.push(decision);
-        }
+        require(membres[msg.sender], "You are not a member !");
+        decisions.push(Decision(description, 0, 0, now + 7 days));
     }
     
     function voter(uint indice, bool value) public {
-        if (estMembre(msg.sender) && !decisions[indice].aVote[msg.sender]){
-            if (value)
-                decisions[indice].votesPour += 1;
-            else
-                decisions[indice].votesContre += 1;
-
-            decisions[indice].aVote[msg.sender] = true;
-        }
+        require(membres[msg.sender], "You are not a member !");
+        require(indice < decisions.length && indice >= 0, "Wrong index");
+        require(!decisions[indice].aVote[msg.sender], "You have already voted");
+        require(decisions[indice].dateFin > now, "Vote is closed");
+        decisions[indice].aVote[msg.sender] = true;
+        if (value)
+            decisions[indice].votesPour += 1;
+        else
+            decisions[indice].votesContre += 1;
     }
 
     function comptabiliser(uint indice) public view returns (int){
