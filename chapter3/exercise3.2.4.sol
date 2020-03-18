@@ -41,7 +41,6 @@ contract CagnotteFestival is Cogere {
     mapping (address => string) sponsors;
 
     uint placesRestantes;
-    uint private cagnotte;
     uint dateFestival;
     uint dateLiquidation;
     uint timestampDerniereDepense;
@@ -50,7 +49,6 @@ contract CagnotteFestival is Cogere {
 
     constructor(uint date) public {
         placesRestantes = 1000;
-        cagnotte = 0;
         dateFestival = date;
         dateLiquidation = dateFestival.add(2 weeks);
         seuilDepenseQuotidienne = 50 ether;
@@ -64,16 +62,14 @@ contract CagnotteFestival is Cogere {
 
         placesRestantes = placesRestantes.sub(1);
         festivaliers[msg.sender]=true;
-
-        cagnotte = cagnotte.add(msg.value);
     }
 
-    function controleDepense(uint montant) private returns (bool) {
-        if ((block.timestamp - timestampDerniereDepense) < 86400 && (totalDepense.add(montant) > seuilDepenseQuotidienne))
-            return false;
-        else {
+    function controleDepense(uint montant) internal returns (bool) {
+        if (block.timestamp - timestampDerniereDepense < 86400)
+            if (totalDepense.add(montant) > seuilDepenseQuotidienne)
+                return false;
+        else
             totalDepense = 0;
-        }
 
         totalDepense = totalDepense.add(montant);
         timestampDerniereDepense = now;
@@ -84,22 +80,19 @@ contract CagnotteFestival is Cogere {
     function payer(address payable destinataire, uint montant) public {
         require(estOrga(msg.sender), "Il faut etre organisateur pour dépenser la cagnotte");
         require(destinataire != address(0), "destinataire non valide");
-        require(montant > 0 && montant < cagnotte, "Impossible de dépenser plus que la cagnotte");
-
+        require(block.timestamp < dateLiquidation, "Date de liquidation dépassée");
         require(controleDepense(montant) == true, "Seuil de dépense quotidienne dépassé !");
 
         destinataire.transfer(montant);
 
-        cagnotte = cagnotte.sub(montant);
     }
 
     function retraitOrganisateurs() public {
         require(estOrga(msg.sender), "Vous n'etes pas un organisateur");
         require(block.timestamp > dateLiquidation, "La date de liquidation n'est pas encore atteinte");
 
-        msg.sender.transfer(cagnotte.mul(organisateurs[msg.sender].div(100)));
-        cagnotte = cagnotte.sub(cagnotte.mul(organisateurs[msg.sender].div(100)));
-        organisateurs[msg.sender] = 0;
+        msg.sender.transfer((address(this).balance).mul(organisateurs[msg.sender].div(100)));
+        delete organisateurs[msg.sender];
         nbOrganisateurs = nbOrganisateurs.sub(1);
         if (nbOrganisateurs == 0){
             selfdestruct(msg.sender);
@@ -108,10 +101,7 @@ contract CagnotteFestival is Cogere {
 
     function sponsoriser(string memory nom) public payable {
         require(msg.value >= 30 ether, "Pour être cité comme sponsor, un paiement de 30 ethers minimum est requis");
-
-        cagnotte = cagnotte.add(msg.value);
         sponsors[msg.sender] = nom;
-
     }
 
 }
