@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Première DApp</title>
+</head>
+
+<body>
+ <h1>Titre de la première DApp</h1>
+ <!-- This exposes the library as a global variable: ethers -->
+
+ <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
+ 	charset="utf-8"
+ 	type="text/javascript">	
+ </script>
+<script src="application.js"
+	charset="utf-8"
+	type="text/javascript">
+</script>
+
+<button onclick="createMetaMaskDapp()">Connect to MetaMask</button><br>
+
+<button onclick="getBalance()">Get Balance</button>
+<span type="text" id="balance"></span><br>
+
+<button onclick="getBlockNumber()">Get Block Number</button>
+<span type="text" id="block_number"></span><br>
+
+<button onclick="getGasPrice()">Get Gas Price</button>
+<span type="text" id="gas_price"></span><br>
+
+<button onclick="sendHomework()">Send Homework</button>
+<input type="text" placeholder="homework url" id="homework_url"/><br>
+<span type="text" id="homework_hash"></span><br>
+<span type="text" id="sender_addr"></span><br>
+<button onclick="getCredibility()">Get Credibility</button><br>
+
+<span type="text" id="credibility"></span>
+
+
+</body>
+
+</html>
