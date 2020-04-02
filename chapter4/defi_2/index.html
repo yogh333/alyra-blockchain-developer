@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Place de Marché</title>
+</head>
+
+<body>
+ <h1>Place de Marché Illustrateurs Indé</h1>
+ <!-- This exposes the library as a global variable: ethers -->
+
+ <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
+ 	charset="utf-8"
+ 	type="text/javascript">	
+ </script>
+
+ <script src="application.js"
+	charset="utf-8"
+	type="text/javascript">
+ </script>
+
+<button onclick="createMetaMaskDapp()">Connect to MetaMask</button>
+<span type="text" id="user_address"></span><br>
+
+<button onclick="getBalance()">Get Balance</button>
+<span type="text" id="balance"></span><br>
+
+<button onclick="inscription()">S'inscrire</button>
+<input type="text" placeholder="nom" id="nomUtilisateur"/>
+<select id="fonctionUtilisateur">
+	<option value="None" selected>-- Select --</option>
+	<option value="ID001">Entreprise</option>
+	<option value="ID002">Illustrateur</option>
+</select>
+</body>
+
+</html>
