@@ -6,36 +6,106 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css" />
 	<title>Place de Marché</title>
 </head>
 
 <body>
- <h1>Place de Marché Illustrateurs Indé</h1>
- <!-- This exposes the library as a global variable: ethers -->
+ 	<!-- This exposes the library as a global variable: ethers -->
+ 	<script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
+ 		charset="utf-8"
+ 		type="text/javascript">	
+ 	</script>
+ 	<script src="application.js"
+		charset="utf-8"
+		type="text/javascript">
+ 	</script>
 
- <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
- 	charset="utf-8"
- 	type="text/javascript">	
- </script>
+ 	<header>
+		Place de Marché pour illustrateurs indépendants
+	</header>
+	<section>
+		<h3> Test </h3>
+		<button onclick="createMetaMaskDapp()">Connect to MetaMask</button>
+		<output id="test_output_user_address"></output><br>
+		<button onclick="getBalance()">Get Balance</button>
+		<output id="test_output_user_balance"></output><br>
+		<button onclick="getScBalance()">Get SC Balance</button>
+		<output id="test_output_sc_balance"></output><br>
+	</section>
 
- <script src="application.js"
-	charset="utf-8"
-	type="text/javascript">
- </script>
+	<section>
+		<h3>Inscription Utilisateurs:</h3>
+		<input type="text" placeholder="nom" id="nomUtilisateur"/>
+		<select id="natureUtilisateur">
+			<option value="None" selected>-- Select --</option>
+			<option value="ID001">Entreprise</option>
+			<option value="ID002">Illustrateur</option>
+		</select><br>
+		<button onclick="inscription()">S'inscrire</button>
+		<output id="inscription_output_result"></output>
+		<h4> Liste des demandes <button onclick="displayRequests()">Afficher les demandes</button><h4>
+		<table id="liste_demandes">
+			<thead>
+    			<tr>
+        			<th>ID</th>
+        			<th>Demandeur</th>
+        			<th>Description</th>
+        			<th>Rémuneration (wei)</th>
+        			<th>Délai</th>
+        			<th>Etat</th>
+        			<th>Nb de candidats</th>
+        			<th>Illustrateur choisi</th>
+    			</tr>
+			</thead>
+			<tbody id="liste_demandes_entreprise">
+			</tbody>
+		</table>
+	</section>
 
-<button onclick="createMetaMaskDapp()">Connect to MetaMask</button>
-<span type="text" id="user_address"></span><br>
+	<section id="section_company"> 
+		<h3> Zone Entreprise: </h3>
+		<h4>Envoi d'une nouvelle demande</h4>
+		<ul>
+			<li class="field">Description = <input type="text" placeholder="description de la demande" id="descriptionDemande"></li>
+			<li class="field">Délai de livraison = <input type="number" placeholder="délai en secondes" id="delaiDemande"></li>
+			<li class="field">Rémunération (en wei) = <input type="number" placeholder="remuneration (en wei)" id="remunerationDemande"></li>
+		</ul>
+		<button onclick="ajouterDemande()">Envoyer la demande</button><br>
+		<ul style="list-style-type: square">
+			<li class="field"> Coût total de la transaction (rémunération + 2% de frais) = <output id="cout_total"></ouput></li>
+			<li class="field"> ID de la demande = <output id="demande_id"></output></li>	
+		</ul>
+		<h4>Liste des candidats pour une de vos demandes</h4>
+		<input type="number" placeholder="ID de la demande" id="liste-candidats-demandeid">
+		<button onclick="listOfCandidates()">Liste des candidats</button><br>
+		<table id="table-liste-candidats">
+			<thead>
+        		<tr>
+            		<th>Adresse</th>
+            		<th>Nom</th>
+            		<th>Réputation</th>
+            		<th>Action</th>
+        		</tr>
+    		</thead>
+    		<tbody id="row-table-liste-candidats">
+    		</tbody>
+		</table>
+	</section>
 
-<button onclick="getBalance()">Get Balance</button>
-<span type="text" id="balance"></span><br>
+	<section id="section_illustrator">
+		<h3> Zone Illustrateur: </h3>
+		<input type="number" placeholder="ID de la demande" id="demande_id_postuler">
+		<button onclick="postuler()">Postuler</button>
+		<output id="output_postuler"></output><br>
 
-<button onclick="inscription()">S'inscrire</button>
-<input type="text" placeholder="nom" id="nomUtilisateur"/>
-<select id="fonctionUtilisateur">
-	<option value="None" selected>-- Select --</option>
-	<option value="ID001">Entreprise</option>
-	<option value="ID002">Illustrateur</option>
-</select>
+		<input type="text" placeholder="URL du livrable" id="delivery_url">
+		<input type="number" placeholder="ID de la demande" id="delivery_demandeID">		
+		<button onclick="livrer()">Livrer</button><br>
+		<output id="delivery_hash"></output><br>
+		<button onclick="encaisser()">Réclamer paiement</button>
+		<output id="delivery_paiement"></output>
+	</section>
 </body>
 
 </html>
