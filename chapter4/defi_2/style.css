@@ -1,0 +1,36 @@
+header
+{
+	text-align: center;
+	font-size: x-large;
+	font-weight: bold;
+}
+h1
+{
+	text-align: center;
+}
+.field
+{
+	font-family: "Courier New";
+	font-size: small;
+}
+p.thick {
+  font-weight: bold;
+}
+#liste_demandes td, #row-table-liste-candidats td {
+    border: 1px solid #333;
+    text-align: center;
+
+}
+#liste_demandes th, #table-liste-candidats th {
+	background-color: rgb(180,180,180);
+	color: black;
+	font-size: small;
+}
+
+#section_company {
+	background-color: rgb(200,200,200);
+}
+
+#section_illustrator {
+	background-color: rgb(230,230,230);
+}
