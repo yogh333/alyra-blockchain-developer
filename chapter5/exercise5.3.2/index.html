@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css" />
+	<title>IPFS</title>
+</head>
+
+<body>
+ 	<script src="https://unpkg.com/ipfs-http-client@29.1.1/dist/index.min.js"></script>
+ 	<script src="application.js"
+		charset="utf-8"
+		type="text/javascript">
+ 	</script>
+
+ 	<header>
+		Interacting with IPFS node from Web Browser
+	</header>
+	<section>
+		<h3> My ID </h3>
+		<output id="myPeerID"></output>
+		<h3> List of connected Peers ID (10 only) </h3>
+		<output id="peerID-list"></output>
+		<input type="text" placeholder="Peer ID" id="peerid"/>
+		<button onclick="ping()">Ping</button>
+		<output id="pong"></output>
+	</section>
+</body>
+
+</html>
