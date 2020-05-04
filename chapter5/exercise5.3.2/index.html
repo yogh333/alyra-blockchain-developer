@@ -11,11 +11,8 @@
 </head>
 
 <body>
- 	<script src="https://unpkg.com/ipfs-http-client@29.1.1/dist/index.min.js"></script>
- 	<script src="application.js"
-		charset="utf-8"
-		type="text/javascript">
- 	</script>
+	<script src="https://unpkg.com/ipfs-http-client@44.0.1/dist/index.min.js"></script>
+ 	<script src="bundle.js"></script>
 
  	<header>
 		Interacting with IPFS node from Web Browser
@@ -26,8 +23,17 @@
 		<h3> List of connected Peers ID (10 only) </h3>
 		<output id="peerID-list"></output>
 		<input type="text" placeholder="Peer ID" id="peerid"/>
-		<button onclick="ping()">Ping</button>
+		<button onclick="pingPeer()">Ping</button><br>
 		<output id="pong"></output>
+	</section>
+	<section>
+		<h3> Add text content to IPFS </h3>
+		<input type="text" placeholder="text string" id="datastring"/>
+		<button onclick="addString()">Add</button><br>
+		<output id="CID"></output><br>
+		<input type="text" placeholder="CID" id="cidstring"/>
+		<button onclick="catString()">Cat</button><br>
+		<output id="cidcontent"></output><br>
 	</section>
 </body>
 
