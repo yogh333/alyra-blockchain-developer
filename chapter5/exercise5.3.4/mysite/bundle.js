@@ -98,7 +98,7 @@ global.displayImage = function (){
 
 	let contrat = new ethers.Contract(cartes_sc.address, cartes_sc.abi, dapp.provider.getSigner(dapp.addresses[0]));
 
-	for (let idx = 0 ; idx < 3; idx++){
+	for (let idx = 0 ; idx < 10; idx++){
 			contrat.recuperer(idx).then(cid => {
 				console.log("Get CID = " + cid);
 				cat(cid).then(res => {
