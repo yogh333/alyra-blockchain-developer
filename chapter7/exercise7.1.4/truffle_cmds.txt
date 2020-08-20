@@ -1,0 +1,10 @@
+let accounts = await web3.eth.getAccounts()
+let instance = await MagicItemBase.deployed()
+let result = await instance.dig({from: accounts[1], value: web3.utils.toWei("0.1", "ether")})
+result.logs[0].args[0]
+result.logs[0].args[1].toNumber()
+
+let balance = await instance.balanceOf(accounts[0])
+balance.toNumber()
+
+let collection = instance.listOf(accounts[1])
