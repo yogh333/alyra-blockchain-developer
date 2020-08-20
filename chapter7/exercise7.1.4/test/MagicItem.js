@@ -62,38 +62,36 @@ contract('MagicItemBase', (accounts) => {
     assert.equal(balance.valueOf(), 2, "Balance for account "+3+" is wrong = "+balance.valueOf());
   });
 
-  it('Get all tokens from owner', async () => {
+  it('Get all tokens per owner', async () => {
     
     const instance = await MagicItem.deployed();
 
     for (let i = 0; i < accounts.length; i++){
-      let tokens = await instance.tokensOfOwner(accounts[i]);
-      let tokensList = "";
-      for (let j = 0; j < tokens.length; j++){
-        tokensList += tokens[j].toNumber()+", ";
+      let balance = await instance.balanceOf(accounts[i]);
+      let tokensList = ""; 
+      for (let j = 0; j < balance; j++){
+        let token = await instance.tokenOfOwnerByIndex(accounts[i], j); 
+        tokensList += token.toNumber()+", "; 
       }
-      console.log("Account "+i+" has "+tokens.length+" tokens :" + tokensList);
+      console.log("Account "+i+" has tokens :" + tokensList);
     }
-
   });
 
   it('Transfer a token between accounts', async () => {
 
     const instance = await MagicItem.deployed();
-
-    let tokens = await instance.tokensOfOwner(accounts[1]);
-
+    let balance = await instance.balanceOf(accounts[1]);
     let index = 0;
-    let tokenIdToTransfer = tokens[index++].toNumber();
-    while ((tokenIdToTransfer >= 2000) && (index < tokens.length)) {
-        tokenIdToTransfer = tokens[index++].toNumber();
+    let token = await instance.tokenOfOwnerByIndex(accounts[1], index++);
+    while ((token.toNumber() >= 2000) && (index < balance)) {
+        token = await instance.tokenOfOwnerByIndex(accounts[1], index++);
     }
 
-    console.log("TokenID to transfer =" + tokenIdToTransfer);
+    console.log("TokenID to transfer =" + token.toNumber());
 
-    await instance.transferFrom(accounts[1], accounts[4], tokenIdToTransfer, {from: accounts[1]});
+    await instance.transferFrom(accounts[1], accounts[4], token.toNumber(), {from: accounts[1]});
 
-    console.log("TokenID transferred =" + tokenIdToTransfer);
+    console.log("TokenID transferred =" + token.toNumber());
 
     balance = await instance.balanceOf(accounts[1]);
     assert.equal(balance.toNumber(), 3, "bad balance for account 1"); 
@@ -103,75 +101,45 @@ contract('MagicItemBase', (accounts) => {
 
   });
 
-  it('Get all tokens from owner after transfer', async () => {
+  it('Get all tokens per owner after transfer', async () => {
     
     const instance = await MagicItem.deployed();
 
     for (let i = 0; i < accounts.length; i++){
-      let tokens = await instance.tokensOfOwner(accounts[i]);
-      let tokensList = "";
-      for (let j = 0; j < tokens.length; j++){
-        tokensList += tokens[j].toNumber()+", ";
+      let balance = await instance.balanceOf(accounts[i]);
+      let tokensList = ""; 
+      for (let j = 0; j < balance; j++){
+        let token = await instance.tokenOfOwnerByIndex(accounts[i], j); 
+        tokensList += token.toNumber()+", "; 
       }
-      console.log("Account "+i+" has "+tokens.length+" tokens :" + tokensList);
+      console.log("Account "+i+" has tokens :" + tokensList);
     }
-
   });
+
 
   it('Use a magic item', async () => {
     const instance = await MagicItem.deployed();
 
-    let tokens = await instance.tokensOfOwner(accounts[1]);
+    let token = await instance.tokenOfOwnerByIndex(accounts[1], 0);
 
-    let result = await instance.use(tokens[0].toNumber(), {from: accounts[1]});
+    let result = await instance.use(token.toNumber(), {from: accounts[1]});
 
     console.log("Used tokenID = "+result.logs[0].args[0].toNumber()+ " Random = "+result.logs[0].args[1].toNumber());
 
   });
 
-  it('List all tokens from owner after use', async () => {
+  it('Get all tokens per owner after transfer after use', async () => {
     
     const instance = await MagicItem.deployed();
 
     for (let i = 0; i < accounts.length; i++){
-      let tokens = await instance.tokensOfOwner(accounts[i]);
-      let tokensList = "";
-      for (let j = 0; j < tokens.length; j++){
-        tokensList += tokens[j].toNumber()+", ";
+      let balance = await instance.balanceOf(accounts[i]);
+      let tokensList = ""; 
+      for (let j = 0; j < balance; j++){
+        let token = await instance.tokenOfOwnerByIndex(accounts[i], j); 
+        tokensList += token.toNumber()+", "; 
       }
-      console.log("Account "+i+" has "+tokens.length+" tokens :" + tokensList);
+      console.log("Account "+i+" has tokens :" + tokensList);
     }
-
   });
-
-  /* it('should call a function that depends on a linked library', async () => {
-    const metaCoinInstance = await MetaCoin.deployed();
-    const metaCoinBalance = (await metaCoinInstance.getBalance.call(accounts[0])).toNumber();
-    const metaCoinEthBalance = (await metaCoinInstance.getBalanceInEth.call(accounts[0])).toNumber();
-
-    assert.equal(metaCoinEthBalance, 2 * metaCoinBalance, 'Library function returned unexpected function, linkage may be broken');
-  });
-  it('should send coin correctly', async () => {
-    const metaCoinInstance = await MetaCoin.deployed();
-
-    // Setup 2 accounts.
-    const accountOne = accounts[0];
-    const accountTwo = accounts[1];
-
-    // Get initial balances of first and second account.
-    const accountOneStartingBalance = (await metaCoinInstance.getBalance.call(accountOne)).toNumber();
-    const accountTwoStartingBalance = (await metaCoinInstance.getBalance.call(accountTwo)).toNumber();
-
-    // Make transaction from first account to second.
-    const amount = 10;
-    await metaCoinInstance.sendCoin(accountTwo, amount, { from: accountOne });
-
-    // Get balances of first and second account after the transactions.
-    const accountOneEndingBalance = (await metaCoinInstance.getBalance.call(accountOne)).toNumber();
-    const accountTwoEndingBalance = (await metaCoinInstance.getBalance.call(accountTwo)).toNumber();
-
-
-    assert.equal(accountOneEndingBalance, accountOneStartingBalance - amount, "Amount wasn't correctly taken from the sender");
-    assert.equal(accountTwoEndingBalance, accountTwoStartingBalance + amount, "Amount wasn't correctly sent to the receiver");
-  });*/
 });
