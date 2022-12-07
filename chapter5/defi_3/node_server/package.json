@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "ethers": "^4.0.47",
-    "ipfs": "^0.43.1"
+    "ipfs": "^0.65.0"
   }
 }
